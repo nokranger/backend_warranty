@@ -66,8 +66,8 @@ app.post('/information', (req, res) => {
   connection.getConnection((err, con) => {
       if (err) throw err
       console.log("Connected!")
-      var sql = "INSERT INTO information (number, chokenumber, carnumber, carbrand, carmodel, name, housenumber, village, alley, road, subdistrict, district, province, zipcode, telephonenumber, namestaller, installerdate, installtelephine, installeraddress, zipcodeinstaller, startofinstall) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      var value = [req.body.number, req.body.chokenumber, req.body.carnumber, req.body.carbrand, req.body.carmodel, req.body.name, req.body.housenumber, req.body.village, req.body.alley, req.body.road, req.body.subdistrict, req.body.district, req.body.province, req.body.zipcode, req.body.telephonenumber, req.body.namestaller, req.body.installerdate, req.body.installtelephine, req.body.installeraddress, req.body.zipcodeinstaller, req.body.startofinstall]
+      var sql = "INSERT INTO information (number, chokenumber, carnumber, carbrand, carmodel, name, housenumber, village, alley, road, subdistrict, district, province, zipcode, telephonenumber, namestaller, installerdate, installtelephone, installeraddress, zipcodeinstaller, startofinstall) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      var value = [req.body.number, req.body.chokenumber, req.body.carnumber, req.body.carbrand, req.body.carmodel, req.body.name, req.body.housenumber, req.body.village, req.body.alley, req.body.road, req.body.subdistrict, req.body.district, req.body.province, req.body.zipcode, req.body.telephonenumber, req.body.namestaller, req.body.installerdate, req.body.installtelephone, req.body.installeraddress, req.body.zipcodeinstaller, req.body.startofinstall]
       if (err) throw err
       connection.query(sql, value, (err, result, fields) => {
         console.log('sql queryplan')
