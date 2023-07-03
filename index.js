@@ -47,7 +47,7 @@ var connection = mysql.createPool({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database: 'jtek'
+  database: 'tokico'
 });
  
 connection.getConnection(function(err) {
@@ -66,13 +66,15 @@ app.post('/information', (req, res) => {
   connection.getConnection((err, con) => {
       if (err) throw err
       console.log("Connected!")
-      var sql = "INSERT INTO information (number, chokenumber, carnumber, carbrand, carmodel, name, housenumber, village, alley, road, subdistrict, district, province, zipcode, telephonenumber, namestaller, installerdate, installtelephone, installeraddress, zipcodeinstaller, startofinstall) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      var value = [req.body.number, req.body.chokenumber, req.body.carnumber, req.body.carbrand, req.body.carmodel, req.body.name, req.body.housenumber, req.body.village, req.body.alley, req.body.road, req.body.subdistrict, req.body.district, req.body.province, req.body.zipcode, req.body.telephonenumber, req.body.namestaller, req.body.installerdate, req.body.installtelephone, req.body.installeraddress, req.body.zipcodeinstaller, req.body.startofinstall]
+      // var sql = "INSERT INTO infomation (number, chokenumber, carnumber, carbrand, carmodel, name, housenumber, village, alley, road, subdistrict, district, province, zipcode, telephonenumber, namestaller, installerdate, installtelephone, installeraddress, zipcodeinstaller, startofinstall) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      var sql = "INSERT INTO infomation (number, chokenumber) VALUES (?, ?)";
+      // var value = [req.body.number, req.body.chokenumber, req.body.carnumber, req.body.carbrand, req.body.carmodel, req.body.name, req.body.housenumber, req.body.village, req.body.alley, req.body.road, req.body.subdistrict, req.body.district, req.body.province, req.body.zipcode, req.body.telephonenumber, req.body.namestaller, req.body.installerdate, req.body.installtelephone, req.body.installeraddress, req.body.zipcodeinstaller, req.body.startofinstall]
+      var value = [req.body.number, req.body.chokenumber]
       if (err) throw err
       connection.query(sql, value, (err, result, fields) => {
-        console.log('sql queryplan')
+        console.log('sql queryplan', result)
         console.log(result)
-        if (result.length > 0) {
+        if (result.affectedRows >= 1) {
           console.log('status200')
           res.status(200).json({
             result: result
@@ -92,7 +94,21 @@ app.post('/information', (req, res) => {
 app.get('/getinformation', (req, res) => {
   connection.getConnection((err, con) => {
       if (err) throw err
-      connection.query("SELECT * FROM information", (err, result, fields) => {
+      connection.query("SELECT * FROM infomation", (err, result, fields) => {
+        if (err) throw err
+        // console.log(result);
+        res.json({
+          result: result
+        })
+        con.release()
+      })
+    })
+    console.log('done selected')
+})
+app.get('/getdetailinformation', (req, res) => {
+  connection.getConnection((err, con) => {
+      if (err) throw err
+      connection.query("SELECT * FROM infomation", (err, result, fields) => {
         if (err) throw err
         // console.log(result);
         res.json({

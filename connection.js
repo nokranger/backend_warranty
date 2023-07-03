@@ -3,7 +3,7 @@ var connection = mysql.createPool({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database: 'jtek'
+  database: 'tokico'
 });
  
 connection.getConnection(function(err) {
