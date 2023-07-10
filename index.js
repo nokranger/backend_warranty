@@ -62,14 +62,13 @@ connection.getConnection(function(err) {
 
 app.post('/information', (req, res) => {
   console.log('DATA: ', req.body)
-  console.log('DATA: ', req.body.pallet)
   connection.getConnection((err, con) => {
       if (err) throw err
       console.log("Connected!")
-      // var sql = "INSERT INTO infomation (number, chokenumber, carnumber, carbrand, carmodel, name, housenumber, village, alley, road, subdistrict, district, province, zipcode, telephonenumber, namestaller, installerdate, installtelephone, installeraddress, zipcodeinstaller, startofinstall) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      var sql = "INSERT INTO infomation (number, chokenumber) VALUES (?, ?)";
-      // var value = [req.body.number, req.body.chokenumber, req.body.carnumber, req.body.carbrand, req.body.carmodel, req.body.name, req.body.housenumber, req.body.village, req.body.alley, req.body.road, req.body.subdistrict, req.body.district, req.body.province, req.body.zipcode, req.body.telephonenumber, req.body.namestaller, req.body.installerdate, req.body.installtelephone, req.body.installeraddress, req.body.zipcodeinstaller, req.body.startofinstall]
-      var value = [req.body.number, req.body.chokenumber]
+      var sql = "INSERT INTO infomation (number, chokenumber, carnumber, carbrand, carmodel, name, housenumber, village, alley, road, subdistrict, district, province, zipcode, telephonenumber, namestaller, installerdate, installertelephone, installeraddress, zipcodeinstaller, startofinstall) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      // var sql = "INSERT INTO infomation (number, chokenumber) VALUES (?, ?)";
+      var value = [req.body.number, req.body.chokenumber, req.body.carnumber, req.body.carbrand, req.body.carmodel, req.body.name, req.body.housenumber, req.body.village, req.body.alley, req.body.road, req.body.subdistrict, req.body.district, req.body.province, req.body.zipcode, req.body.telephonenumber, req.body.namestaller, req.body.installerdate, req.body.installertelephone, req.body.installeraddress, req.body.zipcodeinstaller, req.body.startofinstall]
+      // var value = [req.body.number, req.body.chokenumber]
       if (err) throw err
       connection.query(sql, value, (err, result, fields) => {
         console.log('sql queryplan', result)
