@@ -118,6 +118,50 @@ app.get('/getdetailinformation', (req, res) => {
     })
     console.log('done selected')
 })
+app.get('/information1', (req, res) => {
+  connection.getConnection((err, con) => {
+      if (err) throw err
+      connection.query("SELECT * FROM `infomation` WHERE chokenumber = 'ดฟหดฟหดฟห'", (err, result, fields) => {
+        if (err) throw err
+        // console.log(result);
+        res.json({
+          result: result
+        })
+        con.release()
+      })
+    })
+    console.log('done selected')
+})
+
+app.post('/information1', (req, res) => {
+  console.log('DATA: ', req.body)
+  connection.getConnection((err, con) => {
+      if (err) throw err
+      console.log("Connected!")
+      var sql = "SELECT * FROM `infomation` WHERE chokenumber = 'ดฟหดฟหดฟห'";
+      // var sql = "INSERT INTO infomation (number, chokenumber) VALUES (?, ?)";
+      var value = [req.body.number]
+      // var value = [req.body.number, req.body.chokenumber]
+      if (err) throw err
+      connection.query(sql, value, (err, result, fields) => {
+        console.log('sql queryplan', result)
+        console.log(result)
+        if (result.affectedRows >= 1) {
+          console.log('status200')
+          res.status(200).json({
+            result: result
+          })
+        } else {
+          console.log('status404')
+          res.status(404).json({
+            err: err
+          })
+        } 
+      con.release()
+      })
+    })
+    console.log('done selected')
+})
 
 app.post('/dodata', (req, res) => {
   console.log('DATA: ', req.body)
